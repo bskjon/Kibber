@@ -1,0 +1,1 @@
+./gradlew downloadApolloSchema --endpoint="https://api.tibber.com/v1-beta/gql" --schema=src/main/graphql/no/iktdev/tibber/schema.graphqls

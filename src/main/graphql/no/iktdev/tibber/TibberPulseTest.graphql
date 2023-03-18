@@ -1,0 +1,12 @@
+subscription TibberPulseTest ($homeId: ID!) {
+    testMeasurement(homeId: $homeId) {
+        timestamp
+        power
+        accumulatedConsumption
+        accumulatedCost
+        currency
+        minPower
+        averagePower
+        maxPower
+    }
+}
