@@ -47,6 +47,8 @@ jobs:
 
     - name: Gradle Test
       run: ./gradlew test
+      env:
+        tibberTestToken: ${{ secrets.tibberTestToken }}
         
         
     - name: Publish to Reposilite
