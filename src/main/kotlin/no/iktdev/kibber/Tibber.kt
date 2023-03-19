@@ -18,7 +18,7 @@ import java.security.InvalidParameterException
 
 class Tibber(val oAuthToken: String, implementer: String): GraphQlProvider(), TibberCalls {
 
-    val userAgent = "${implementer}/kTibber/${GetProperties().version()}"
+    val userAgent = "${implementer}/Kibber/${GetProperties().version()}"
     init {
         if (implementer.isBlank() || implementer.length < 2)
             throw InvalidParameterException("A implementer is required (ex: Homey, Hass)")
