@@ -17,8 +17,7 @@ permissions:
   contents: read
   
 env:
-  reposiliteUsername: ${{ secrets.PRIVATE_REPO_USERNAME }}
-  reposilitePassword: ${{ secrets.PRIVATE_REPO_PASSWORD }}
+  tibberTestToken: ${{ secrets.TIBBERTESTTOKEN }}
 
 jobs:
   build:
@@ -47,6 +46,9 @@ jobs:
 
     - name: Gradle Test
       run: ./gradlew test
+      env:
+        tibberTestToken: $tibberTestToken
+        
         
         
     - name: Publish to Reposilite
