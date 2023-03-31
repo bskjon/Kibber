@@ -86,11 +86,24 @@ class Tibber(val oAuthToken: String, implementer: String): GraphQlProvider(), Ti
         subscription.toFlow()
             .retryWhen { e, attempt ->
                 if (e is ApolloNetworkException) {
-                    if (e.platformCause is ApolloWebSocketClosedException && (e.platformCause as ApolloWebSocketClosedException).code == 4500) {
-                        withContext(Dispatchers.Default) {
-                            registeredLiveListener?.onRetryExited(attempt, e)
+                    if (e.platformCause is ApolloWebSocketClosedException) {
+                        val socket = e.platformCause as ApolloWebSocketClosedException
+                        val terminate = when(socket.code) {
+                            4500 -> {
+                                withContext(Dispatchers.Default) {
+                                    registeredLiveListener?.onRetryExited(attempt, e, socket.message ?: "")
+                                }
+                                false
+                            }
+                            4429 -> {
+                                withContext(Dispatchers.Default) {
+                                    registeredLiveListener?.onRetryExited(attempt, e, socket.message ?: "")
+                                }
+                                false
+                            }
+                            else -> true
                         }
-                        return@retryWhen false
+                        if (terminate) return@retryWhen false
                     }
                 }
                 withContext(Dispatchers.Default) {

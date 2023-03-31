@@ -6,5 +6,5 @@ interface TibberListener {
     fun onMeasurementReceived(measurement: TibberPulseSubscription.LiveMeasurement)
     fun onInvalidMeasurementReceived()
     fun onMeasurementRetry(attempt: Long, throwable: Throwable? = null) {}
-    fun onRetryExited(attempt: Long, throwable: Throwable? = null) {}
+    fun onRetryExited(attempt: Long, throwable: Throwable? = null, message: String = "") {}
 }
